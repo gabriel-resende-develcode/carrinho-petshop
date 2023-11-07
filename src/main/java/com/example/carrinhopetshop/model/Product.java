@@ -1,13 +1,18 @@
 package com.example.carrinhopetshop.model;
 
+import com.example.carrinhopetshop.dto.product.ProductRequest;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
 @EqualsAndHashCode(of = "id")
+@Getter
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -23,6 +28,13 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Category category;
+
+    public Product(ProductRequest request){
+        name = request.name();
+        description = request.description();
+        price = request.price();
+        category = request.category();
+    }
 }
