@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "sales")
 @EqualsAndHashCode(of = "id")
-public class Sale {
+public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
