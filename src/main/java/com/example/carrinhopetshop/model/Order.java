@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "sales")
 @EqualsAndHashCode(of = "id")
-public class Purchase {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class Purchase {
 
     private LocalDateTime purchaseDate;
 
-    @OneToMany(mappedBy = "purchase")
+    @OneToMany(mappedBy = "order")
     private List<ShoppingCartItem> items;
 
     @ManyToOne

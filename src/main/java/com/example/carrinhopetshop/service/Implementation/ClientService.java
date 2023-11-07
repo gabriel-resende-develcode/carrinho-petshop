@@ -35,6 +35,7 @@ public class ClientService implements IClientService {
 
     @Override
     public void delete(Long id) {
+        getById(id);
         clientRepository.deleteById(id);
     }
 }
