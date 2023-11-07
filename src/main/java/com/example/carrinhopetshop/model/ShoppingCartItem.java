@@ -27,5 +27,5 @@ public class ShoppingCartItem {
     private ShoppingCart shoppingCart;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Sale sale;
+    private Purchase purchase;
 }

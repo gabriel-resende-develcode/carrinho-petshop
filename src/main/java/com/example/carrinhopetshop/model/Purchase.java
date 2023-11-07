@@ -21,7 +21,7 @@ public class Purchase {
 
     private LocalDateTime purchaseDate;
 
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "purchase")
     private List<ShoppingCartItem> items;
 
     @ManyToOne
