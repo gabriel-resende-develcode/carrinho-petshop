@@ -11,7 +11,7 @@ import java.util.List;
 public record CartResponse(Long id,
                            BigDecimal totalValue,
                            Client client,
-                           @JsonIgnoreProperties("cart") List<CartItem> items) {
+                           @JsonIgnoreProperties(value = {"cart", "order"}) List<CartItem> items) {
 
     public CartResponse(Cart entity){
         this(entity.getId(), entity.getTotalValue(), entity.getClient(), entity.getItems());

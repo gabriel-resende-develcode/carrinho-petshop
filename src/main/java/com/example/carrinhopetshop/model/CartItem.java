@@ -1,11 +1,10 @@
 package com.example.carrinhopetshop.model;
 
-import com.example.carrinhopetshop.dto.cart.CartItemRequest;
+import com.example.carrinhopetshop.dto.cart.CartRequest;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 
@@ -35,7 +34,7 @@ public class CartItem {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-    public CartItem(CartItemRequest request, Cart cart) {
+    public CartItem(CartRequest request, Cart cart) {
         unitPrice = request.product().getPrice();
         quantity = request.quantity();
         product = request.product();

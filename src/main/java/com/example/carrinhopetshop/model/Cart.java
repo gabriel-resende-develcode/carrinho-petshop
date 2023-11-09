@@ -1,13 +1,11 @@
 package com.example.carrinhopetshop.model;
 
-import com.example.carrinhopetshop.dto.cart.CartItemRequest;
 import com.example.carrinhopetshop.dto.cart.CartResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

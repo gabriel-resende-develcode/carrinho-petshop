@@ -1,6 +1,6 @@
 package com.example.carrinhopetshop.controller;
 
-import com.example.carrinhopetshop.dto.cart.CartItemRequest;
+import com.example.carrinhopetshop.dto.cart.CartRequest;
 import com.example.carrinhopetshop.dto.cart.CartResponse;
 import com.example.carrinhopetshop.dto.order.OrderResponse;
 import com.example.carrinhopetshop.service.ICartService;
@@ -34,7 +34,7 @@ public class CartController {
     }
 
     @PostMapping(value = "/{cartId}")
-    public ResponseEntity<CartResponse> addItem(@RequestBody @Valid CartItemRequest request, @PathVariable Long cartId, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<CartResponse> addItem(@RequestBody @Valid CartRequest request, @PathVariable Long cartId, UriComponentsBuilder uriBuilder) {
         var cartResponse = cartService.addItemToCart(request, cartId);
         var uri = uriBuilder.path("/api/cart/{id}").buildAndExpand(cartResponse.id()).toUri();
         return ResponseEntity.created(uri).body(cartResponse);
