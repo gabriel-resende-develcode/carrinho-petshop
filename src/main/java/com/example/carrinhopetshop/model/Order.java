@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "sales")
+@Table(name = "orders")
 @EqualsAndHashCode(of = "id")
 public class Order {
 
@@ -22,7 +22,7 @@ public class Order {
     private LocalDateTime purchaseDate;
 
     @OneToMany(mappedBy = "order")
-    private List<ShoppingCartItem> items;
+    private List<CartItem> items;
 
     @ManyToOne
     private Client client;
