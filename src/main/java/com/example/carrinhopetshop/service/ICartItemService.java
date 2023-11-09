@@ -1,5 +1,6 @@
 package com.example.carrinhopetshop.service;
 
+import com.example.carrinhopetshop.dto.cart.CartRequest;
 import com.example.carrinhopetshop.dto.cartItem.CartItemResponse;
 import com.example.carrinhopetshop.model.CartItem;
 
@@ -7,7 +8,11 @@ import java.util.List;
 
 public interface ICartItemService {
 
-    void removeItemFromCart(Long id);
+    CartItemResponse removeItemFromCart(Long itemId, CartRequest request);
+
+    void deleteCartItems(Long cartId);
+
+    public void deleteById(Long id);
 
     CartItem save(CartItem item);
 

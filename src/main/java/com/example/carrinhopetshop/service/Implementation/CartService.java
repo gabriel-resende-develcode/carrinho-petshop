@@ -92,7 +92,7 @@ public class CartService implements ICartService {
     @Transactional
     public void clearCart(Long cartId) {
         getCartById(cartId);
-        cartItemService.removeItemFromCart(cartId);
+        cartItemService.deleteCartItems(cartId);
         cartRepository.deleteById(cartId);
     }
 

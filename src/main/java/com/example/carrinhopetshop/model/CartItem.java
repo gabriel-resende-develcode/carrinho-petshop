@@ -1,6 +1,7 @@
 package com.example.carrinhopetshop.model;
 
 import com.example.carrinhopetshop.dto.cart.CartRequest;
+import com.example.carrinhopetshop.dto.cartItem.CartItemResponse;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,7 +42,18 @@ public class CartItem {
         this.cart = cart;
     }
 
+    public CartItem(CartItemResponse response) {
+        id = response.id();
+        unitPrice = response.unitPrice();
+        quantity = response.quantity();
+        product = response.product();
+    }
+
     public void incrementQuantity(int quantity) {
         this.quantity += quantity;
+    }
+
+    public void decreaseItemQuantity(int newQuantity) {
+        quantity -= newQuantity;
     }
 }

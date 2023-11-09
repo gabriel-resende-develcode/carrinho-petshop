@@ -19,4 +19,12 @@ public class GlobalExceptionHandler {
         StandardError standardError = new StandardError(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(standardError);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<StandardError> illegalArgumentExceptionHandler(IllegalArgumentException ex, HttpServletRequest request) {
+        String error = "Illegal argument";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(standardError);
+    }
 }

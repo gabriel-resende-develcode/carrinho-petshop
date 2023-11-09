@@ -1,5 +1,6 @@
 package com.example.carrinhopetshop.controller;
 
+import com.example.carrinhopetshop.dto.cart.CartRequest;
 import com.example.carrinhopetshop.dto.cartItem.CartItemResponse;
 import com.example.carrinhopetshop.model.CartItem;
 import com.example.carrinhopetshop.service.ICartItemService;
@@ -38,9 +39,12 @@ public class CartItemController {
         return ResponseEntity.created(uri).body(item);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> removeItem(@PathVariable Long id) {
-        cartItemService.removeItemFromCart(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping(value = "/{itemId}")
+    public ResponseEntity<?> removeItem(@PathVariable Long itemId, @RequestBody CartRequest request) {
+        var response = cartItemService.removeItemFromCart(itemId, request);
+        if (response == null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(response);
     }
 }

@@ -8,10 +8,10 @@ import com.example.carrinhopetshop.model.Cart;
 import java.math.BigDecimal;
 
 public record CartItemResponse(Long id, BigDecimal unitPrice, int quantity,
-                               Product product, Cart cart) {
+                               Product product) {
 
-    public CartItemResponse(CartItem entity){
+    public CartItemResponse(CartItem entity) {
         this(entity.getId(), entity.getUnitPrice(), entity.getQuantity(),
-                entity.getProduct(), entity.getCart());
+                entity.getProduct());
     }
 }
