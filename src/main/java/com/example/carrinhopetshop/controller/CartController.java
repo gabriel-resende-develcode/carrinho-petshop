@@ -2,6 +2,7 @@ package com.example.carrinhopetshop.controller;
 
 import com.example.carrinhopetshop.dto.cart.CartItemRequest;
 import com.example.carrinhopetshop.dto.cart.CartResponse;
+import com.example.carrinhopetshop.dto.order.OrderResponse;
 import com.example.carrinhopetshop.service.ICartService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class CartController {
     public ResponseEntity<Void> clearCart(@PathVariable Long id) {
         cartService.clearCart(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(value = "/buy/{id}")
+    public ResponseEntity<OrderResponse> finalizePurchase(@PathVariable Long id){
+        return ResponseEntity.ok(cartService.finalizePurchase(id));
     }
 }

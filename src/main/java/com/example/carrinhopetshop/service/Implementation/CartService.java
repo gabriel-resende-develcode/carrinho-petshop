@@ -2,11 +2,14 @@ package com.example.carrinhopetshop.service.Implementation;
 
 import com.example.carrinhopetshop.dto.cart.CartItemRequest;
 import com.example.carrinhopetshop.dto.cart.CartResponse;
+import com.example.carrinhopetshop.dto.order.OrderResponse;
 import com.example.carrinhopetshop.model.Cart;
 import com.example.carrinhopetshop.model.CartItem;
+import com.example.carrinhopetshop.model.Order;
 import com.example.carrinhopetshop.repository.CartRepository;
 import com.example.carrinhopetshop.service.ICartItemService;
 import com.example.carrinhopetshop.service.ICartService;
+import com.example.carrinhopetshop.service.IOrderService;
 import com.example.carrinhopetshop.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +25,13 @@ public class CartService implements ICartService {
 
     private final ICartItemService cartItemService;
 
+    private final IOrderService orderService;
+
     @Autowired
-    public CartService(CartRepository cartRepository, ICartItemService cartItemService) {
+    public CartService(CartRepository cartRepository, ICartItemService cartItemService, IOrderService orderService) {
         this.cartRepository = cartRepository;
         this.cartItemService = cartItemService;
+        this.orderService = orderService;
     }
 
     @Transactional
@@ -84,7 +90,10 @@ public class CartService implements ICartService {
 
     @Transactional
     @Override
-    public void finalizePurchase(Long cartId) {
+    public OrderResponse finalizePurchase(Long cartId) {
+        var cart = new Cart(getCartById(cartId));
+        var order = new Order(cart);
         clearCart(cartId);
+        return orderService.create(order);
     }
 }
