@@ -1,6 +1,5 @@
 package com.example.carrinhopetshop.service.Implementation;
 
-import com.example.carrinhopetshop.controller.CartItemController;
 import com.example.carrinhopetshop.dto.cart.CartRequest;
 import com.example.carrinhopetshop.dto.cartItem.CartItemResponse;
 import com.example.carrinhopetshop.model.CartItem;
@@ -52,7 +51,7 @@ public class CartItemService implements ICartItemService {
         if (requestQuantity < 0) {
             throw new IllegalArgumentException("You can't remove a negative quantity of items");
         } else if (requestQuantity >= currentQuantity) {
-            deleteById(itemId);
+            deleteItemById(itemId);
             return null;
         } else {
             var newQuantity = cartItem.decreaseItemQuantity(requestQuantity);
@@ -63,7 +62,7 @@ public class CartItemService implements ICartItemService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
+    public void deleteItemById(Long id) {
         cartItemRepository.deleteById(id);
     }
 
