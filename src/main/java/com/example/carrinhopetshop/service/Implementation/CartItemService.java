@@ -44,7 +44,8 @@ public class CartItemService implements ICartItemService {
     @Override
     @Transactional
     public CartItemResponse removeItemFromCart(Long itemId, CartRequest request) {
-        var cartItem = new CartItem(getById(itemId));
+        var cartItem = cartItemRepository.findById(itemId)
+                .orElseThrow(() -> new ResourceNotFoundException("No item with this id. Id" + itemId));
         var requestQuantity = request.quantity();
         var currentQuantity = cartItem.getQuantity();
 
@@ -54,14 +55,15 @@ public class CartItemService implements ICartItemService {
             deleteById(itemId);
             return null;
         } else {
-            cartItem.decreaseItemQuantity(requestQuantity);
-            return new CartItemResponse(cartItem);
+            var newQuantity = cartItem.decreaseItemQuantity(requestQuantity);
+            cartItem.getCart().decreaseTotalValue(newQuantity, cartItem.getUnitPrice());
+            return new CartItemResponse(cartItemRepository.save(cartItem));
         }
     }
 
     @Override
     @Transactional
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         cartItemRepository.deleteById(id);
     }
 

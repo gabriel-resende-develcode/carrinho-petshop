@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -53,7 +54,8 @@ public class CartItem {
         this.quantity += quantity;
     }
 
-    public void decreaseItemQuantity(int newQuantity) {
-        quantity -= newQuantity;
+    public int decreaseItemQuantity(int newQuantity) {
+        this.quantity -= newQuantity;
+        return this.quantity;
     }
 }

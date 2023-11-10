@@ -44,11 +44,15 @@ public class Cart {
         items = response.items();
     }
 
-    public void addItemToTheCart(CartItem item){
+    public void addItemToTheCart(CartItem item) {
         items.add(item);
     }
 
-    public void incrementTotalValue(BigDecimal value){
+    public void incrementTotalValue(BigDecimal value) {
         totalValue = totalValue.add(value);
+    }
+
+    public void decreaseTotalValue(int newQuantity, BigDecimal unitPrice) {
+        totalValue = unitPrice.multiply(new BigDecimal(newQuantity));
     }
 }
