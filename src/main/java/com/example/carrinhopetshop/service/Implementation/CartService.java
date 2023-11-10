@@ -36,12 +36,15 @@ public class CartService implements ICartService {
 
     @Transactional
     @Override
-    public CartResponse addItemToCart(CartRequest request, Long cartId) {
-        CartResponse cartResponse = null;
+    public CartResponse createCart(CartRequest request) {
+        return addItemToNewCart(request);
+    }
 
-        if (!cartRepository.existsById(cartId)) {
-            cartResponse = addItemToNewCart(request, cartId);
-        } else if (cartItemService.productIsAlreadyInTheCart(request.product().getId(), cartId)) {
+    @Transactional
+    @Override
+    public CartResponse addItemToCart(CartRequest request, Long cartId) {
+        var cartResponse = getCartById(cartId);
+        if (cartItemService.productIsAlreadyInTheCart(request.product().getId(), cartId)) {
             cartResponse = addExistingItemToCart(request, cartId);
         } else {
             cartResponse = addNewItemToCart(request, cartId);
@@ -52,7 +55,9 @@ public class CartService implements ICartService {
     private CartResponse addNewItemToCart(CartRequest request, Long cartId) {
         var cart = new Cart(getCartById(cartId));
         cart.incrementTotalValue(calculateTotalValue(request.product().getPrice(), request.quantity()));
-        cart.addItemToTheCart(cartItemService.save(new CartItem(request, cart)));
+        cartRepository.save(cart);
+        var item = (new CartItem(request, cart));
+        cart.addItemToTheCart(cartItemService.save(item));
         return new CartResponse(cart);
     }
 
@@ -64,7 +69,7 @@ public class CartService implements ICartService {
         return new CartResponse(cart);
     }
 
-    private CartResponse addItemToNewCart(CartRequest request, Long cartId) {
+    private CartResponse addItemToNewCart(CartRequest request) {
         var totalValue = calculateTotalValue(request.product().getPrice(), request.quantity());
         var cart = new Cart(totalValue, request.client());
         cart = cartRepository.save(cart);

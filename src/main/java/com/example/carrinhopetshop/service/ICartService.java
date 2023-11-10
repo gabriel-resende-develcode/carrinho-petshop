@@ -7,6 +7,7 @@ import com.example.carrinhopetshop.dto.order.OrderResponse;
 import java.util.List;
 
 public interface ICartService {
+    CartResponse createCart(CartRequest request);
 
     CartResponse addItemToCart(CartRequest request, Long id);
 

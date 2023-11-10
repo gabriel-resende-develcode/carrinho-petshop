@@ -18,6 +18,7 @@ public class CartItemService implements ICartItemService {
 
     private final CartItemRepository cartItemRepository;
 
+
     @Autowired
     public CartItemService(CartItemRepository cartItemRepository) {
         this.cartItemRepository = cartItemRepository;
@@ -54,7 +55,7 @@ public class CartItemService implements ICartItemService {
             return null;
         } else {
             cartItem.decreaseItemQuantity(requestQuantity);
-            return new CartItemResponse(cartItemRepository.save(cartItem));
+            return new CartItemResponse(cartItem);
         }
     }
 
@@ -72,14 +73,14 @@ public class CartItemService implements ICartItemService {
 
     @Override
     public boolean productIsAlreadyInTheCart(Long productId, Long cartId) {
-        var cartItem = cartItemRepository.findProductInTheCart(productId, cartId);
+        var cartItem = cartItemRepository.findCartItemByCart_IdAndProduct_Id(cartId, productId);
         return cartItem != null;
     }
 
     @Override
     @Transactional
     public void updateCartItemQuantity(int quantity, Long productId, Long cartId) {
-        var cartItem = cartItemRepository.findProductInTheCart(cartId, productId);
+        var cartItem = cartItemRepository.findCartItemByCart_IdAndProduct_Id(cartId, productId);
         cartItem.incrementQuantity(quantity);
     }
 }

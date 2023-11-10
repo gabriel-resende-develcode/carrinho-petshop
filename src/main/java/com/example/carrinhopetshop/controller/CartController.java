@@ -33,11 +33,16 @@ public class CartController {
         return ResponseEntity.ok(cartService.getCartById(id));
     }
 
-    @PostMapping(value = "/{cartId}")
-    public ResponseEntity<CartResponse> addItem(@RequestBody @Valid CartRequest request, @PathVariable Long cartId, UriComponentsBuilder uriBuilder) {
-        var cartResponse = cartService.addItemToCart(request, cartId);
+    @PostMapping
+    public ResponseEntity<CartResponse> createCart(@RequestBody @Valid CartRequest request, UriComponentsBuilder uriBuilder) {
+        var cartResponse = cartService.createCart(request);
         var uri = uriBuilder.path("/api/cart/{id}").buildAndExpand(cartResponse.id()).toUri();
         return ResponseEntity.created(uri).body(cartResponse);
+    }
+
+    @PutMapping(value = "/{cartId}")
+    public ResponseEntity<CartResponse> addItem(@RequestBody @Valid CartRequest request, @PathVariable Long cartId, UriComponentsBuilder uriBuilder) {
+        return ResponseEntity.ok(cartService.addItemToCart(request, cartId));
     }
 
     @DeleteMapping(value = "/{id}")
