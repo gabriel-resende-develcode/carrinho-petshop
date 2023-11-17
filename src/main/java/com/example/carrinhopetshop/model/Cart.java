@@ -3,6 +3,7 @@ package com.example.carrinhopetshop.model;
 import com.example.carrinhopetshop.dto.cart.CartResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class Cart {
 
     @Id
