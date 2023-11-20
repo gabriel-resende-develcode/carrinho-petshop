@@ -13,14 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -52,13 +50,13 @@ class CartControllerTest {
 
     @Test
     void shouldReturnCode200WhenGetAllCarts() throws Exception {
-        mvc.perform(get("/api/cart"))
+        mvc.perform(get("/api/cart/{cartId}", 1))
                 .andExpect(status().isOk());
     }
 
     @Test
     void shouldReturnCode200WhenGetCartById() throws Exception {
-        mvc.perform(get("/api/cart/1"))
+        mvc.perform(get("/api/cart/{cartId}", 1))
                 .andExpect(status().isOk());
     }
 
@@ -66,16 +64,14 @@ class CartControllerTest {
     void shouldReturnBadRequestOnTryToCreateAnEmptyCart() throws Exception {
         String json = "{}";
 
-        var response = mvc.perform(post("/api/cart")
+        mvc.perform(post("/api/cart")
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON)
-        ).andReturn().getResponse();
-
-        assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
-    void shouldReturnCode200WhenCreateCartWithAnItem() throws Exception {
+    void shouldReturnCode201WhenCreateCartWithAnItem() throws Exception {
         String json = new ObjectMapper()
                 .writeValueAsString(new CartRequest(2, product, client));
 
@@ -94,7 +90,7 @@ class CartControllerTest {
         String json = new ObjectMapper()
                 .writeValueAsString(new CartRequest(2, product, client));
 
-        mvc.perform(put("/api/cart/1")
+        mvc.perform(put("/api/cart/{cartId}", 1)
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -102,13 +98,13 @@ class CartControllerTest {
 
     @Test
     void shouldReturnNoContentWhenClearACart() throws Exception {
-        mvc.perform(delete("/api/cart/1"))
+        mvc.perform(delete("/api/cart/{cartId}", 1))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void shouldReturnCode200WhenFinalizeAPurchase() throws Exception {
-        mvc.perform(delete("/api/cart/buy/1"))
+        mvc.perform(delete("/api/cart/buy/{cartId}", 1))
                 .andExpect(status().isOk());
     }
 }
