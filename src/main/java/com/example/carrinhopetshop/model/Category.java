@@ -2,6 +2,7 @@ package com.example.carrinhopetshop.model;
 
 import com.example.carrinhopetshop.dto.category.CategoryRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Category {
 
     @Id

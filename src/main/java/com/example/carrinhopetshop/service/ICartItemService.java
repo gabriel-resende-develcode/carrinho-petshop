@@ -12,7 +12,7 @@ public interface ICartItemService {
 
     void deleteCartItems(Long cartId);
 
-    public void deleteItemById(Long id);
+    void deleteItemById(Long id);
 
     CartItem save(CartItem item);
 
