@@ -32,13 +32,6 @@ public class CartItemController {
         return ResponseEntity.ok(cartItemService.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<CartItem> save(@RequestBody CartItem requestItem, UriComponentsBuilder uriBuilder) {
-        var item = cartItemService.save(requestItem);
-        var uri = uriBuilder.path(("/api/cart/items/{id}")).buildAndExpand(item.getId()).toUri();
-        return ResponseEntity.created(uri).body(item);
-    }
-
     @PutMapping(value = "/{itemId}")
     public ResponseEntity<?> removeItem(@PathVariable Long itemId, @RequestBody CartRequest request) {
         var response = cartItemService.removeItemFromCart(itemId, request);
