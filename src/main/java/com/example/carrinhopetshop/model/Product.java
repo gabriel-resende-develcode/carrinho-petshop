@@ -2,6 +2,7 @@ package com.example.carrinhopetshop.model;
 
 import com.example.carrinhopetshop.dto.product.ProductRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(of = "id")
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
