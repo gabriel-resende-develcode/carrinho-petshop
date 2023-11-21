@@ -105,8 +105,8 @@ public class CartService implements ICartService {
     @Override
     public OrderResponse finalizePurchase(Long cartId) {
         var cart = new Cart(getCartById(cartId));
-        var order = new Order(cart);
         clearCart(cartId);
+        var order = new Order(cart);
         return orderService.create(order);
     }
 }

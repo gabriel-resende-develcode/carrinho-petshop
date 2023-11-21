@@ -51,7 +51,7 @@ public class CartController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/buy/{id}")
+    @PutMapping(value = "/buy/{id}")
     public ResponseEntity<OrderResponse> finalizePurchase(@PathVariable Long id){
         return ResponseEntity.ok(cartService.finalizePurchase(id));
     }

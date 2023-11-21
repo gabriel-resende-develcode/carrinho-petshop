@@ -50,7 +50,7 @@ class CartControllerTest {
 
     @Test
     void shouldReturnCode200WhenGetAllCarts() throws Exception {
-        mvc.perform(get("/api/cart/{cartId}", 1))
+        mvc.perform(get("/api/cart", 1))
                 .andExpect(status().isOk());
     }
 
@@ -104,7 +104,7 @@ class CartControllerTest {
 
     @Test
     void shouldReturnCode200WhenFinalizeAPurchase() throws Exception {
-        mvc.perform(delete("/api/cart/buy/{cartId}", 1))
+        mvc.perform(put("/api/cart/buy/{cartId}", 1))
                 .andExpect(status().isOk());
     }
 }

@@ -54,7 +54,7 @@ class CartItemControllerTest {
 
     @Test
     void shouldReturnCode200WhenGetItemById() throws Exception {
-        mvc.perform(get("/api/cart/items"))
+        mvc.perform(get("/api/cart/items/{itemId}", 1))
                 .andExpect(status().isOk());
     }
 
