@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @Table(name = "cart_items")
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class CartItem {
