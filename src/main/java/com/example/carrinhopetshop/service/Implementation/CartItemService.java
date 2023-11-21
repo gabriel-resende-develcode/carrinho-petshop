@@ -63,6 +63,8 @@ public class CartItemService implements ICartItemService {
     @Override
     @Transactional
     public void deleteItemById(Long id) {
+        cartItemRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("There is no item with this id. Id: " + id));
         cartItemRepository.deleteById(id);
     }
 
